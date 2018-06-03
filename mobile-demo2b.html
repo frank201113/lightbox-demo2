@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+	<title>Document</title>
+	<style>
+	html {
+		font-size: 50px;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		list-style: none;
+	}
+	img {
+	    border: 0;
+	    vertical-align: middle;
+	    display: inline-block;
+	}
+	.cut-wrap {
+		margin: .36rem 0 .5rem 0;
+		height: 4.5rem;
+		overflow: hidden;
+		overflow-x: scroll;
+		-webkit-overflow-scrolling: touch;
+		position: relative;
+	}
+	.cut-wrap .cut-imgs {
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: 0 .3rem;
+		height: 4.5rem;
+		word-break: keep-all;
+		white-space: nowrap;
+		-webkit-overflow-scrolling: touch;
+	}
+	.cut-wrap .cut-imgs a {
+		width: 2.5rem;
+		height: 4.5rem;
+		margin-right: .06rem;
+		display: inline-block;
+	}
+	.cut-wrap .cut-imgs a img {
+		height: 100%;
+	}
+	#imagelightbox-loading,
+	#imagelightbox-overlay,
+	#imagelightbox-close {
+		-webkit-animation: fade-in .25s linear;
+		animation: fade-in .25s linear;
+	}
+	@-webkit-keyframes fade-in
+	{
+		from	{ opacity: 0; }
+		to		{ opacity: 1; }
+	}
+	@keyframes fade-in
+	{
+		from	{ opacity: 0; }
+		to		{ opacity: 1; }
+	}
+	#imagelightbox {
+		position: fixed;
+    	z-index: 9999;
+    	-ms-touch-action: none;
+    	touch-action: none;
+	}
+	#imagelightbox-loading,
+	#imagelightbox-loading div {
+		border-radius: 50%;
+	}
+	#imagelightbox-loading {
+		width: 40px; /* 40 */
+		height: 40px; /* 40 */
+		background-color: #444;
+		background-color: rgba( 0, 0, 0, .5 );
+		position: fixed;
+		z-index: 10003;
+		top: 50%;
+		left: 50%;
+		padding: 10px; /* 10 */
+		margin: -20px 0 0 -20px; /* 20 */
+
+		-webkit-box-shadow: 0 0 40px rgba( 0, 0, 0, .75 ); /* 40 */
+		box-shadow: 0 0 40px rgba( 0, 0, 0, .75 ); /* 40 */
+	}
+	#imagelightbox-loading div {
+		width: 20px; /* 20 */
+		height: 20px; /* 20 */
+		background-color: #fff;
+
+		-webkit-animation: imagelightbox-loading .5s ease infinite;
+		animation: imagelightbox-loading .5s ease infinite;
+		position: absolute;
+    	left: 19px;
+    	top: 18px;
+	}
+	@-webkit-keyframes imagelightbox-loading
+	{
+		from { opacity: .5;	-webkit-transform: scale( .75 ); }
+		50%	 { opacity: 1;	-webkit-transform: scale( 1 ); }
+		to	 { opacity: .5;	-webkit-transform: scale( .75 ); }
+	}
+	@keyframes imagelightbox-loading
+	{
+		from { opacity: .5;	transform: scale( .75 ); }
+		50%	 { opacity: 1;	transform: scale( 1 ); }
+		to	 { opacity: .5;	transform: scale( .75 ); }
+	}
+	#imagelightbox-overlay {	    
+	    background-color: #fff;
+    	background-color: rgba( 255, 255, 255, .9 );
+    	position: fixed;
+    	z-index: 9998;
+    	top: 0;
+    	right: 0;
+    	bottom: 0;
+    	left: 0;
+	}
+	#imagelightbox-close {
+		width: 40px; /* 40 */
+		height: 40px; /* 40 */
+		text-align: left;
+		background-color: #666;
+		border-radius: 50%;
+		position: fixed;
+		z-index: 10002;
+		top: 40px; /* 40 */
+		right: 40px; /* 40 */
+		-webkit-transition: color .3s ease;
+		transition: color .3s ease;
+	}
+	#imagelightbox-close:hover,
+	#imagelightbox-close:focus { 
+		background-color: #111; 
+	}
+	#imagelightbox-close::before,
+	#imagelightbox-close::after {		
+		width: 2px;
+		background-color: #fff;
+		content: '';
+		position: absolute;
+		top: 20%;
+		bottom: 20%;
+		left: 50%;
+		margin-left: -1px;
+	}
+	#imagelightbox-close::before {
+		-webkit-transform: rotate( 45deg );
+		-ms-transform: rotate( 45deg );
+		transform: rotate( 45deg );
+	}
+	#imagelightbox-close::after {
+		-webkit-transform: rotate( -45deg );
+		-ms-transform: rotate( -45deg );
+		transform: rotate( -45deg );
+	}
+	@media only screen and (max-width: 660px) {
+		#imagelightbox-close {
+			top: 5px; /* 20 */
+			right: 7px; /* 20 */
+		}
+	}
+	</style>
+</head>
+<body>
+	<div class="cut-wrap">
+		<div class="cut-imgs">
+			<a class="c-img" href="./img/aa.png" data-imagelightbox="f">
+				<img src="./img/aa.png" />
+			</a>
+			<a class="c-img" href="./img/bb.png" data-imagelightbox="f">
+				<img src="./img/bb.png" />
+			</a>			
+			<a class="c-img" href="./img/cc.png" data-imagelightbox="f">
+				<img src="./img/cc.png" />
+			</a>
+			<a class="c-img" href="./img/dd.png" data-imagelightbox="f">
+				<img src="./img/dd.png" />
+			</a>
+			<a class="c-img" href="./img/ee.jpg" data-imagelightbox="f">
+				<img src="./img/ee.jpg" />
+			</a>
+		</div>
+	</div>
+	<script src="./jquery-2.1.4.min.js"></script>
+	<script src="./imagelightbox.min.js"></script>	
+	<script>
+		
+
+	
+
+	$( function()
+	{
+		var
+			// ACTIVITY INDICATOR
+
+			activityIndicatorOn = function()
+			{
+				$( '<div id="imagelightbox-loading"><div></div></div>' ).appendTo( 'body' );
+			},
+			activityIndicatorOff = function()
+			{
+				$( '#imagelightbox-loading' ).remove();
+			},
+
+
+			// OVERLAY
+
+			overlayOn = function()
+			{
+				$( '<div id="imagelightbox-overlay"></div>' ).appendTo( 'body' );
+			},
+			overlayOff = function()
+			{
+				$( '#imagelightbox-overlay' ).remove();
+			},
+
+
+			// CLOSE BUTTON
+
+			closeButtonOn = function( instance )
+			{
+				$( '<button type="button" id="imagelightbox-close" title="Close"></button>' ).appendTo( 'body' ).on( 'click touchend', function(){ $( this ).remove(); instance.quitImageLightbox(); return false; });
+			},
+			closeButtonOff = function()
+			{
+				$( '#imagelightbox-close' ).remove();
+			};			
+
+
+		//	ALL COMBINED
+
+		var selectorF = 'a[data-imagelightbox="f"]';
+		var instanceF = $( selectorF ).imageLightbox(
+			{
+				onStart:		function() { overlayOn(); closeButtonOn( instanceF ); },
+				onEnd:			function() { overlayOff(); closeButtonOff(); activityIndicatorOff(); },
+				onLoadStart: 	function() { activityIndicatorOn(); },
+				onLoadEnd:	 	function() { activityIndicatorOff(); }
+			});		
+
+	});
+
+
+
+
+	</script>
+</body>
+</html>
